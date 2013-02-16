@@ -48,9 +48,13 @@ function install_gem() {
   fi
 }
 
+# These gems need to be install before bundle is run
 install_gem linecache19
 install_gem therubyracer
 install_gem bosh_cli
+
+# These gems should not be installed before running the rake task
+sudo gem uninstall -a -I multi_xml xml-simple rack-protection
 
 if [[ ! -d ${CF_RELEASE_DIR} ]]; then
   echo "Cloning cf-release repository..."
