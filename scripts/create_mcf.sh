@@ -95,9 +95,13 @@ cd ${BOSH_DIR}
 rm -rf .bundle
 
 # These gems should not be installed before running the rake task
-sudo gem uninstall -a -I multi_xml rack-protection
+sudo gem uninstall -a -I xml-simple multi_xml rack-protection
 
 bundle install
+
+# ensure this user can access stemcell working folders
+sudo chown `whoami`:`whoami` /tmp/all_the_gems
+sudo chown `whoami`:`whoami` /var/tmp/bosh
 
 CPI=vsphere
 MANIFEST=${MICRO_DIR}/deploy/manifest.yml
