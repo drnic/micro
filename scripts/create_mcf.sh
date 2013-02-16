@@ -62,6 +62,7 @@ if [[ ! -d ${CF_RELEASE_DIR} ]]; then
 else
   echo "Updating cf-release repository..."
   cd ${CF_RELEASE_DIR}
+  git checkout . # .gitmodules was changed below on previous runs
   git pull origin ${CF_RELEASE_BRANCH}
 fi
 
