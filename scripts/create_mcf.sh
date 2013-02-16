@@ -100,8 +100,13 @@ sudo gem uninstall -a -I xml-simple multi_xml rack-protection
 bundle install
 
 # ensure this user can access stemcell working folders
-sudo chown `whoami`:`whoami` /tmp/all_the_gems
-sudo chown `whoami`:`whoami` /var/tmp/bosh
+# currently, bosh-bootstrap deploy --edge-stemcell runs as root
+if [[ -d /tmp/all_the_gems ]]; then
+  sudo chown `whoami`:`whoami` /tmp/all_the_gems
+fi
+if [[ -d /var/tmp/bosh ]]; then
+  sudo chown `whoami`:`whoami` /var/tmp/bosh
+fi
 
 CPI=vsphere
 MANIFEST=${MICRO_DIR}/deploy/manifest.yml
