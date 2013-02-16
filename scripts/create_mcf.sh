@@ -53,9 +53,6 @@ install_gem linecache19
 install_gem therubyracer
 install_gem bosh_cli
 
-# These gems should not be installed before running the rake task
-sudo gem uninstall -a -I multi_xml xml-simple rack-protection
-
 if [[ ! -d ${CF_RELEASE_DIR} ]]; then
   echo "Cloning cf-release repository..."
   git clone -b ${CF_RELEASE_BRANCH} ${CF_RELEASE_GIT} ${CF_RELEASE_DIR}
@@ -96,6 +93,10 @@ else
 fi
 cd ${BOSH_DIR}
 rm -rf .bundle
+
+# These gems should not be installed before running the rake task
+sudo gem uninstall -a -I multi_xml rack-protection
+
 bundle install
 
 CPI=vsphere
